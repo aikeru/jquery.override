@@ -1,0 +1,29 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jQuery.Override", "jQuery.Override\jQuery.Override.csproj", "{FCF7A378-F446-4530-8891-54415920AE1C}"
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 2
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs28
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = jQuery.Override\\jQuery.Override.csproj
+		SccProjectName1 = jQuery.Override
+		SccLocalPath1 = jQuery.Override
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FCF7A378-F446-4530-8891-54415920AE1C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FCF7A378-F446-4530-8891-54415920AE1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FCF7A378-F446-4530-8891-54415920AE1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FCF7A378-F446-4530-8891-54415920AE1C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
