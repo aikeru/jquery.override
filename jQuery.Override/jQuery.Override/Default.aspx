@@ -85,7 +85,7 @@
     <h2>
         Welcome to ASP.NET!
     </h2>
-    <p>
+
         <p>Last time a Page_Load (postback, etc.) occurred was: <%=DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToLongTimeString() %></p>
         <p>This is a typical ASP.NET button that does a postback: <asp:Button ID="btnTypical" Text="Typical Button" OnClick="btnTypical_OnClick" runat="server" /></p>
         <p>Click this button to use jQuery.override to override the behavior of this button: <button onclick="return overrideTheButton();">Override it!</button></p>
@@ -98,7 +98,7 @@
         <p>Click this button to unsubscribe from the legacy function: <button onclick="return unsubscribeFromLegacyFunction();">Unsubscribe From Function</button></p>
         <p>Click this button to restore the legacy function: <button onclick="return restoreFunction();">Restore Function</button></p>
         <p>Legacy output: <textarea rows="6" cols="50" id="txaOutput"></textarea></p>
-    </p>
+
     <p>
         The project for jQuery.Override can be found at <a href="http://jqueryoverride.codeplex.com"
             title="jQuery Override Codeplex">jqueryoverride on codeplex</a>.
