@@ -11,16 +11,22 @@
 
 Syntax:
 	
-$('#imgBtn').override('onclick', 'click'); //convert inline to a jQuery .bind() event.
-$('#imgBtn').override('onclick', 'click', function(oldFunction, element, arguments) { ... }); //convert to jquery .bind() event, passing the original function to the callback
-$('#imgBtn').override('onclick', 'click', function(oldFunction) { ... });
-$('#imgBtn').override('restore');
-$('#imgBtn').override('restore', 'onclick');
-doSomeWork = $.override(doSomeWork, function(argumentsPassed, oldFunction) { ... }); //wrap a function
-$(document).override(doSomeWork, 'subscribe', function(event) { ... });
-$(document).override(doSomeWork, 'unsubscribe') // remove all subscriptions
-$(document).override(doSomeWork, 'unsubscribe', On_DoSomeWork) //remove this subscription
-doSomeWork = $.override(doSomeWork, 'restore') //restore function to original state
+Convert inline event to jQuery bind() event:
+$('#button').override('onclick', 'click')
+Convert and wrap inline event:
+$('#button').override('onclick', 'click', function (oldFunction, jQueryElement, arguments))
+Restore to original state (if no attribute specified, restore all):
+$('#button').override('restore', &lt;'attribute'&gt;);
+
+Function Mode:
+Wrap a function:
+LegacyFunction = $(document).override(LegacyFunction, function(arguments, oldFunction))
+Subscribe to the wrapped function:
+$(document).override(LegacyFunction, function(event, arguments))
+Unsubscribe from wrapped function:
+$(document).override(LegacyFunction, 'unsubscribe', &lt;callback&gt;);
+Restore function to original state:
+LegacyFunction = $(document).override(LegacyFunction, 'restore');
 	
 see jqueryoverride.codeplex.com for some examples.
 
@@ -204,7 +210,7 @@ see jqueryoverride.codeplex.com for some examples.
             }
             return retObj;
         }
-        
+
         nFunction.isOverride = oFunctionCount;
         nFunction.isWrapped = true;
         oFunctionCount++;
@@ -323,8 +329,11 @@ see jqueryoverride.codeplex.com for some examples.
             var elem = override.getElement(jqElement);
             if (!elem) { return; }
             var oldattr = jqElement.data('override-' + attr);
+
+            var overAttr;
+            $.each(elem.attributes, function () { overAttr = this.attr === attr ? this : overAttr; });
             jqElement.attr(attr, oldattr);
-            jqElement.unbind(attr, elem.boundFunc);
+            jqElement.unbind(attr, overAttr.boundFunc);
             jqElement.removeAttr('data-override-' + attr); //clean-up
             //Remove the attribute from the collection
             for (var i = 0; i < elem.attributes.length; i++) {
@@ -333,25 +342,27 @@ see jqueryoverride.codeplex.com for some examples.
                     return;
                 }
             }
-            //TODO: unbind all jquery bind() using jqElement.unbind(attr, fn);
         } else {
             //remove all overrides
             //completely restore element
             var elemObj = override.getElement(jqElement);
-            for (var i = 0; i < elemObj.attributes.length; i++) {
-                var oldattr = jqElement.data('override-' + elemObj.attr);
-                jqElement.attr(elemObj.attr, oldattr);
-                jqElement.unbind(attr, elemObj.boundFunc);
-                jqElement.removeAttr('data-override-' + elemObj.attr);
-            }
-            //Remove the element reference
-            for (var i = 0; i < oElements.length; i++) {
-                if (oElements[i] === elemObj) {
-                    oElements.splice(i, 1);
-                    return;
+            if (elemObj) {
+                for (var i = 0; i < elemObj.attributes.length; i++) {
+                    var oldattr = jqElement.data('override-' + elemObj.attributes[i].attr);
+                    jqElement.attr(elemObj.attributes[i].attr, oldattr);
+                    //jqElement.unbind(attr, elemObj.boundFunc);
+                    jqElement.unbind(elemObj.attributes[i].attr, elemObj.attributes[i].boundFunc);
+                    jqElement.removeAttr('data-override-' + elemObj.attributes[i].attr);
                 }
+                //Remove the element reference
+                for (var i = 0; i < oElements.length; i++) {
+                    if (oElements[i] === elemObj) {
+                        oElements.splice(i, 1);
+                        return;
+                    }
+                }
+                jqElement.removeAttr('data-override-elementCount');
             }
-            jqElement.removeAttr('data-override-elementCount');
         }
     };
 
