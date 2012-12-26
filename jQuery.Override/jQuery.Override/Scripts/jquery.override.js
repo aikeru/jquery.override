@@ -98,10 +98,7 @@ see jqueryoverride.codeplex.com for some examples.
                 } else {
                     return override.convertInline($(this), arg1, arg2, arg3, arg4);
                 }
-
-                //TODO: check the element for the attr specified
-                //	store the original in data-override-[attr]
-
+                
             });
         }
     };
@@ -223,7 +220,6 @@ see jqueryoverride.codeplex.com for some examples.
         fObj.beforeFunction.push(newFunction);
     };
     override.unsubscribeFunction = function (oldFunction, newFunction) {
-        //TODO: if newFunction undefined, unsubscribe all function callbacks
         var fObj = override.getFunction(oldFunction);
         if (newFunction) {
             for (var i = 0; i < fObj.beforeFunction.length; i++) {
@@ -245,7 +241,6 @@ see jqueryoverride.codeplex.com for some examples.
         }
     };
     override.restoreFunction = function (oldFunction) {
-        //TODO: restore function to original state
         return override.getFunction(oldFunction).originalFunction;
     }
 
